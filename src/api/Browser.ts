@@ -68,7 +68,7 @@ class Browser extends EventEmitter {
     const newPageId = pages[pages.length - 1]
 
     await this._send('WebDriver:SwitchToWindow', {
-      name: newPageId,
+      handle: newPageId,
       focus: true
     })
 
