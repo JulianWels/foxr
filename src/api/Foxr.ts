@@ -24,6 +24,7 @@ export type TLaunchOptions = {
   dumpio?: boolean,
   executablePath: string,
   headless?: boolean
+  safeMode?: boolean
 } & TConnectOptions
 
 class Foxr {
@@ -84,6 +85,7 @@ class Foxr {
   async launch (userOptions: TLaunchOptions): Promise<Browser> {
     const options = {
       headless: true,
+      safeMode: true,
       dumpio: false,
       ...userOptions
     } as TLaunchOptions
@@ -92,10 +94,14 @@ class Foxr {
       throw new Error('`executablePath` option is required, Foxr doesn\'t download Firefox automatically')
     }
 
-    const args = ['-marionette', '-safe-mode', '-no-remote']
+    const args = ['-marionette', '-no-remote']
 
     if (options.headless === true) {
       args.push('-headless')
+    }
+
+    if (options.safeMode === true) {
+      args.push('-safe-mode')
     }
 
     if (Array.isArray(options.args)) {
