@@ -4,8 +4,10 @@ import {
   TSend,
   TInstallAddonResult,
   Context,
-  TGetPrefResult
+  TGetPrefResult,
+  TTimeoutResult
 } from './types'
+import { TJsonMap } from 'typeon'
 
 class Browser extends EventEmitter {
   private _send: TSend
@@ -56,6 +58,11 @@ class Browser extends EventEmitter {
       temporary: isTemporary
     }) as TInstallAddonResult
 
+    return value
+  }
+
+  async setTimeouts (timeouts: { pageLoad?: number, script?: number }): Promise<null> {
+    const { value } = await this._send('WebDriver:SetTimeouts', timeouts as TJsonMap) as TTimeoutResult
     return value
   }
 

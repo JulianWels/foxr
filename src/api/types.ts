@@ -39,6 +39,11 @@ export type TInstallAddonResult = {
   value: string | null
 }
 
+export type TTimeoutResult = {
+  error: string | null,
+  value: null
+}
+
 export type TPref = string | number | boolean
 export type TGetPrefResult = TPref | undefined | null
 
